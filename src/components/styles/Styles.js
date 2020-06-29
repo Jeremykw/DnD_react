@@ -37,7 +37,7 @@ body {
     padding: 0;
     margin: 0;
     display: grid;
-    justify-content: center;
+    text-align: center;
 }
 
 h1,
