@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { formatUrl } from "./helpers/regexHelpers";
+import { formatUrl } from "./helpers/helpers";
 import styled from "styled-components";
 
-const Item = styled.div`
+const StyledLink = styled(Link)`
   display: grid;
   border-radius: 10px;
   font-size: 30px;
@@ -18,9 +18,6 @@ const Item = styled.div`
     background: black;
     transition: background-color 500ms linear;
   }
-`;
-
-const StyledLink = styled(Link)`
   text-decoration: none;
   &:focus,
   &:hover,
@@ -33,14 +30,13 @@ const StyledLink = styled(Link)`
 
 class ListItems extends Component {
   render() {
+    console.log(this);
     return (
-      <StyledLink to={formatUrl(this.props.url)}>
-        <Item
-          data={this.props.data}
-          onClick={() => this.props.getData(this.props.url)}
-        >
-          {this.props.item}
-        </Item>
+      <StyledLink
+        to={formatUrl(this.props.url)}
+        onClick={() => this.setState({ url: this.props.url })}
+      >
+        {this.props.item}
       </StyledLink>
     );
   }
