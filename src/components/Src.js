@@ -6,7 +6,7 @@ import Styles from "./styles/Styles";
 import Head from "./Head";
 import Nav from "./Nav";
 import ListItem from "./ListItem";
-import { formatUrl, apiUrl, parseResults } from "./helpers/helpers";
+import { apiUrl, parseResults } from "./helpers/helpers";
 
 const ItemContainer = styled.div`
 display: grid;
@@ -16,7 +16,7 @@ grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 padding: 50px 
 justify-self: center;
 @media (min-width: 1200px){
-  margin: 100px;
+  margin: 0 100px;
 } 
 `;
 
@@ -25,23 +25,27 @@ class Src extends Component {
     super(props);
     this.state = {
       data: {},
+      fetching: false,
     };
   }
 
-  componentDidMount() {
-    this.getData(this.props.match.url);
-  }
-  componentDidUpdate() {
+  componentDidMount(prevProps, prevState) {
     this.getData(this.props.match.url);
   }
 
-  getData = (url) => {
+  componentDidUpdate(prevProps, prevState) {
+
+    if (this.props !== prevProps) {
+      this.getData(this.props.match.url);
+    }
+  }
+
+  getData = (url, modate) => {
     fetch(apiUrl(url))
       .then((response) => {
         return response.json();
       })
       .then((jsonData) => {
-        
         const data = parseResults(jsonData);
         this.setState({ data: data, url: data.url });
       })
@@ -56,7 +60,6 @@ class Src extends Component {
     const items = Object.keys(data).map((key) => {
       return (
         <ListItem
-          getData={this.getData}
           key={data[key].index}
           item={data[key].index}
           url={data[key].url}
@@ -65,6 +68,8 @@ class Src extends Component {
     });
     return items;
   };
+
+
 
   render() {
     const data = this.state.data;

@@ -30,14 +30,8 @@ const StyledLink = styled(Link)`
 
 class ListItems extends Component {
   render() {
-    console.log(this);
     return (
-      <StyledLink
-        to={formatUrl(this.props.url)}
-        onClick={() => this.setState({ url: this.props.url })}
-      >
-        {this.props.item}
-      </StyledLink>
+      <StyledLink to={formatUrl(this.props.url)}>{this.props.item}</StyledLink>
     );
   }
 }
