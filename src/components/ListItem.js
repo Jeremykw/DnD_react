@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { formatUrl } from "./helpers/helpers";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledLink = styled(Link)`
@@ -30,8 +30,13 @@ const StyledLink = styled(Link)`
 
 class ListItems extends Component {
   render() {
+    console.log(this.props.item);
     return (
-      <StyledLink to={formatUrl(this.props.url)}>{this.props.item}</StyledLink>
+      <React.Fragment>
+        <StyledLink to={formatUrl(this.props.url)}>
+          {this.props.item}
+        </StyledLink>
+      </React.Fragment>
     );
   }
 }

@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
 import Theme from "./styles/Theme";
 import styled, { ThemeProvider } from "styled-components";
-import Styles from "./styles/Styles";
 import Head from "./Head";
 import Nav from "./Nav";
+
 import ListItem from "./ListItem";
 import { apiUrl, parseResults } from "./helpers/helpers";
 
@@ -34,13 +33,12 @@ class Src extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-
     if (this.props !== prevProps) {
       this.getData(this.props.match.url);
     }
   }
 
-  getData = (url, modate) => {
+  getData = (url) => {
     fetch(apiUrl(url))
       .then((response) => {
         return response.json();
@@ -69,11 +67,8 @@ class Src extends Component {
     return items;
   };
 
-
-
   render() {
     const data = this.state.data;
-    console.log("data = ", data);
     return (
       <ThemeProvider theme={Theme}>
         <React.Fragment>

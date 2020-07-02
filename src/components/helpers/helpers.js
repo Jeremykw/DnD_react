@@ -16,7 +16,6 @@ const apiUrl = (url) => {
   const api = "https://dnd5eapi.co";
   const proxy = "https://secure-ravine-36293.herokuapp.com/";
   const formatedUrl = proxy + api + url.replace("src", "api");
-  console.log('url Out = ', formatedUrl);
   return formatedUrl;
 };
 
