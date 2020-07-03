@@ -1,21 +1,30 @@
 import React, { Component } from "react";
-import Theme from "./styles/Theme";
-import styled, { ThemeProvider } from "styled-components";
-import Head from "./Head";
-import Nav from "./Nav";
+import { getData } from "./helpers/helpers";
 import ListItems from "./ListItem";
 
 class Details extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      listData: {},
+    };
+  }
+
+  componentDidMount() {
+    getData(this.props.match.url).then((data) => {
+      this.setState({ listData: data });
+    });
+  }
   render() {
+    const list = this.state.listData;
+    console.log(list)
     return (
-      <ThemeProvider theme={Theme}>
         <React.Fragment>
-          <Head />
-          <Nav />
+
           {/* <ListItems key={data.index} data={data} /> */}
           details
+          {this.props.match.path}
         </React.Fragment>
-      </ThemeProvider>
     );
   }
 }

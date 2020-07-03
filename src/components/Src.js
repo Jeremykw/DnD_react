@@ -2,18 +2,17 @@ import React, { Component } from "react";
 import Theme from "./styles/Theme";
 import styled from "styled-components";
 
-
 import ListItem from "./ListItem";
-import { apiUrl, parseResults } from "./helpers/helpers";
+import { getData } from "./helpers/helpers";
 
 const ItemContainer = styled.div`
-display: grid;
-grid-gap: 5px;
-grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-padding: 50px;
-@media (min-width: 1200px){
-  margin: 0 100px;
-} 
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  padding: 50px;
+  @media (min-width: 1200px) {
+    margin: 0 100px;
+  }
 `;
 
 class Src extends Component {
@@ -21,35 +20,22 @@ class Src extends Component {
     super(props);
     this.state = {
       data: {},
-      fetching: false,
     };
   }
 
-  componentDidMount(prevProps, prevState) {
-    this.getData(this.props.match.url);
+  componentDidMount() {
+    getData(this.props.match.url).then((data) => {
+      this.setState({ data: data });
+    });
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props !== prevProps) {
-      this.getData(this.props.match.url);
+      getData(this.props.match.url).then((data) => {
+        this.setState({ data: data });
+      });
     }
   }
-
-  getData = (url) => {
-    fetch(apiUrl(url))
-      .then((response) => {
-        return response.json();
-      })
-      .then((jsonData) => {
-        const data = parseResults(jsonData);
-        this.setState({ data: data, url: data.url });
-      })
-      .catch((err) =>
-        console.log(
-          `their was an error with with the network conection: ${err}`
-        )
-      );
-  };
 
   renderItems = (data) => {
     const items = Object.keys(data).map((key) => {
@@ -67,9 +53,9 @@ class Src extends Component {
   render() {
     const data = this.state.data;
     return (
-        <React.Fragment>
-          <ItemContainer>{this.renderItems(data)}</ItemContainer>
-        </React.Fragment>
+      <React.Fragment>
+        <ItemContainer>{this.renderItems(data)}</ItemContainer>
+      </React.Fragment>
     );
   }
 }

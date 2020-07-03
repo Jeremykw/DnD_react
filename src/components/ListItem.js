@@ -30,11 +30,10 @@ const StyledLink = styled(Link)`
 
 class ListItems extends Component {
   render() {
-    console.log(this.props.item);
     return (
       <React.Fragment>
-        <StyledLink to={formatUrl(this.props.url)}>
-          {this.props.item}
+        <StyledLink to={formatUrl(this.props.url)} >
+          <div data={this.props}>{this.props.item}</div>
         </StyledLink>
       </React.Fragment>
     );

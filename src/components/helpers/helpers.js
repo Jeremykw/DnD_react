@@ -1,10 +1,3 @@
-
-// let packItem = item.item_url.match(regex, '')[0]
-// .split('-')
-// .join(' ')
-// .toUpperCase();
-// const regex = new RegExp("([^/]+$)", "gi");
-
 const formatUrl = (url) => {
   if (!url) return;
   const formatedUrl = url.replace('api', 'src');
@@ -34,4 +27,28 @@ const parseResults = (responce) => {
   return dataObject;
 };
 
-export { formatUrl, apiUrl, parseResults };
+async function getData(url) {
+  const response = await fetch(apiUrl(url));
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  } else {
+    const data = await response.json();
+    return parseResults(data);
+  }
+};
+  
+    // .then((response) => {
+    //   return response.json();
+    // })
+    // .then((jsonData) => {
+    //   console.log(parseResults(jsonData))
+    //   return parseResults(jsonData);
+    // })
+    // .catch((err) =>
+    //   console.log(
+    //     `their was an error with with the network conection: ${err}`
+    //   )
+    // );
+
+
+export { getData, formatUrl, apiUrl, parseResults };
