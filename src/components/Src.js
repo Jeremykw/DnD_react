@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import Theme from "./styles/Theme";
-import styled, { ThemeProvider } from "styled-components";
-import Head from "./Head";
-import Nav from "./Nav";
+import styled from "styled-components";
+
 
 import ListItem from "./ListItem";
 import { apiUrl, parseResults } from "./helpers/helpers";
@@ -68,13 +67,9 @@ class Src extends Component {
   render() {
     const data = this.state.data;
     return (
-      <ThemeProvider theme={Theme}>
         <React.Fragment>
-          <Head />
-          <Nav />
           <ItemContainer>{this.renderItems(data)}</ItemContainer>
         </React.Fragment>
-      </ThemeProvider>
     );
   }
 }
