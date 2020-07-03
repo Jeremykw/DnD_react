@@ -8,7 +8,6 @@
 const formatUrl = (url) => {
   if (!url) return;
   const formatedUrl = url.replace('api', 'src');
-  console.log(formatedUrl[0])
   return formatedUrl;
 };
 

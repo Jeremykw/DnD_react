@@ -10,10 +10,8 @@ import { apiUrl, parseResults } from "./helpers/helpers";
 const ItemContainer = styled.div`
 display: grid;
 grid-gap: 5px;
-grid-template-columns: repeat(auto-fi, minmax(150px, 1fr));
 grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-padding: 50px 
-justify-self: center;
+padding: 50px;
 @media (min-width: 1200px){
   margin: 0 100px;
 } 
