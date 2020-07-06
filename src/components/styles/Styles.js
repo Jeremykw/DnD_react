@@ -1,4 +1,4 @@
-import styled, { injectGlobal } from "styled-components";
+import { injectGlobal } from "styled-components";
 
 const Styles = injectGlobal`
 
@@ -38,6 +38,7 @@ body {
     margin: 0;
     display: grid;
     text-align: center;
+    
 }
 
 h1,

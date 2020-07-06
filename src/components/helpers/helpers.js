@@ -19,6 +19,10 @@ const parseResults = (responce) => {
     dataObject = responce.results.map((item) => item);
     return dataObject;
   }
+  // if responce has a desc property the data is not nested and therefor return responce
+  if (responce.desc || responce.full_name) {
+    return responce;
+  }
   // convert hash into an array of objets
   dataObject = Object.keys(responce).map((key) => ({
     index: key,
@@ -36,19 +40,5 @@ async function getData(url) {
     return parseResults(data);
   }
 };
-  
-    // .then((response) => {
-    //   return response.json();
-    // })
-    // .then((jsonData) => {
-    //   console.log(parseResults(jsonData))
-    //   return parseResults(jsonData);
-    // })
-    // .catch((err) =>
-    //   console.log(
-    //     `their was an error with with the network conection: ${err}`
-    //   )
-    // );
-
 
 export { getData, formatUrl, apiUrl, parseResults };
