@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import DetailsLanguage from "./DetailsLanguage";
+import DetailsSkillRelatedAbility from "./DetailsSkillRelatedAbility";
 
 const DetailsStyles = styled.div`
   display: grid;
@@ -95,7 +96,6 @@ class DetailsInfo extends Component {
     });
     return info;
   };
-  
 
   render() {
     const details = this.props.details;
@@ -106,9 +106,13 @@ class DetailsInfo extends Component {
     return (
       <DetailsStyles>
         <Desc>{this.renderDesc(details.desc)}</Desc>
-        <DetailsLanguage details={details}/>
+        <DetailsLanguage details={details} />
+        <DetailsSkillRelatedAbility
+          details={details}
+        />
         {this.renderSkills(details.skills)}
         {this.renderSkill(this.props.skillData)}
+        {this.renderRelatedAbility}
       </DetailsStyles>
     );
   }
