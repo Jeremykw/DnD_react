@@ -1,31 +1,36 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { formatUrl } from "./helpers/helpers";
+import DetailsLanguage from "./DetailsLanguage";
 
 const DetailsStyles = styled.div`
-  flex: 1;
   display: grid;
   grid-gap: 20px;
   text-align: left;
   grid-template-areas:
-    "desc1 desc1 list"
-    "desc2 desc2 list";
+    "desc desc list"
+    "desc desc list"
+    "skill skill skill";
 `;
 
-const Desc1 = styled.div`
-  grid-area: desc1;
+const Desc = styled.div`
+  grid-area: desc;
+  min-width: 350px;
 `;
-const Desc2 = styled.div`
-  grid-area: desc2;
-`;
+
 const List = styled.div`
   grid-area: list;
   padding-left: 10px;
+  text-align: right;
   border-left: 2px solid black;
 `;
 
-const SkillsLink = styled.span`
+const SkillPreview = styled.div`
+  padding: 20px;
+  grid-area: skill;
+  border-top: 2px solid black;
+`;
+
+const SkillsLink = styled.div`
   text-decoration: none;
   cursor: pointer;
   color: ${(props) => props.theme.btnText};
@@ -43,27 +48,67 @@ const SkillsLink = styled.span`
   }
 `;
 class DetailsInfo extends Component {
-  handleClick = () => {console.log('clickity click')};
+  handleClickSkill = (url) => {
+    this.props.getDataSetState(url, "skillData");
+  };
+
+  renderSkills = (skills) => {
+    if (!skills || !Object.keys(skills).length > 0) return;
+    return (
+      <List>
+        <h3>Related Skills</h3>
+        {this.addSkills(skills)}
+      </List>
+    );
+  };
+
+  addSkills = (skills) => {
+    if (!skills) return;
+    const skillList = skills.map((skill) => {
+      console.log("skills = ", skills);
+      return (
+        <SkillsLink
+          key={skill.name}
+          onClick={() => this.handleClickSkill(skill.url)}
+        >
+          {skill.name}
+        </SkillsLink>
+      );
+    });
+    return skillList;
+  };
+
+  renderSkill = (skill) => {
+    if (!Object.keys(skill).length > 0 || !skill) return;
+    return (
+      <SkillPreview>
+        <h3>{skill.name}</h3>
+        {skill.desc}
+      </SkillPreview>
+    );
+  };
+  renderDesc = (desc) => {
+    if (!desc) return;
+    if (!Array.isArray(desc)) return <div>{desc}</div>;
+    const info = desc.map((desc) => {
+      return <div key={desc}>{desc}</div>;
+    });
+    return info;
+  };
+  
 
   render() {
-    if (!this.props.details.desc) {
+    const details = this.props.details;
+    console.log(details);
+    if (!details.desc && !details.typical_speakers) {
       return <span>loading</span>;
     }
-    const details = this.props.details;
     return (
       <DetailsStyles>
-        <Desc1>{details.desc[0]}</Desc1>
-        <Desc2>{details.desc[1]}</Desc2>
-        <List>
-          <h3>Related Skills</h3>
-          {details.skills.map((skill) => {
-            return (
-              <SkillsLink key={skill.name} onClick={()=>this.handleClick()}>
-                <div>{skill.name}</div>
-              </SkillsLink>
-            );
-          })}
-        </List>
+        <Desc>{this.renderDesc(details.desc)}</Desc>
+        <DetailsLanguage details={details}/>
+        {this.renderSkills(details.skills)}
+        {this.renderSkill(this.props.skillData)}
       </DetailsStyles>
     );
   }

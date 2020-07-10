@@ -33,7 +33,7 @@ class ListItems extends Component {
   render() {
     return (
       <React.Fragment>
-        <StyledList onClick={ () => this.props.handleClick(this.props.url) } >
+        <StyledList onClick={ () => this.props.handleListClick(this.props.url) } >
           {this.props.item}
         </StyledList>
       </React.Fragment>

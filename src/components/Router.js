@@ -6,7 +6,13 @@ import Src from "./Src";
 import Details from "./Details";
 import NotFound from "./NotFound";
 
-const detailPages = ['/src/ability-scores', '/src/skills/:skill']
+const detailPages = [
+  '/src/ability-scores/', 
+  '/src/skills/',
+  '/src/conditions/',
+  '/src/damage-types/',
+  '/src/languages/',
+]
 
 const Router = () => (
   <Switch>

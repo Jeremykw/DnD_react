@@ -1,18 +1,20 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { getData } from "./helpers/helpers";
+import { getData, randomPage } from "./helpers/helpers";
 import DetailsList from "./DetailsList";
 import DetailsInfo from "./DetailsInfo";
 
-const DetailContainer = styled.div`
+const DetailContainerStyles = styled.div`
   display: grid;
   grid-template-columns: 1fr 3fr;
 `;
 
 const ListStyles = styled.div`
   display: grid;
-  grid-gap: 10px;
 
+  grid-gap: 10px;
+  max-height: 350px;
+  padding: 10px;
   justify-content: center;
   border-right: 2px solid black;
 `;
@@ -30,33 +32,29 @@ class Details extends Component {
     this.state = {
       listData: {},
       detailsData: {},
+      skillData: {},
     };
   }
 
-  componentDidMount() {
-    getData(this.props.match.url).then((data) => {
-      this.setState({ listData: data });
-      
-    });
-    getData("/api/ability-scores/wis").then((data) => {
-      this.setState({ detailsData: data });
-      console.log(data);
-    });
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props !== prevProps) {
-      getData(this.props.match.url).then((data) => {
-        this.setState({ data: data });
-      });
-    }
-  }
-
-  handleClick = (url) => {
+  getDataSetState = (url, stateProp) => {
     getData(url).then((data) => {
-      this.setState({ detailsData: data });
-      console.log(this.state.detailsData);
+      const stateObject = {};
+      stateObject[stateProp] = data;
+      this.setState(stateObject);
     });
+  };
+
+  componentDidMount() {
+    const url = this.props.match.url;
+    this.getDataSetState(url, "listData");
+
+    this.getDataSetState(randomPage(url), "detailsData");
+  }
+
+  handleListClick = (url) => {
+    // CHange details view
+    this.getDataSetState(url, "detailsData");
+    this.setState({ skillData: {} });
   };
 
   render() {
@@ -64,22 +62,26 @@ class Details extends Component {
     const details = this.state.detailsData;
     return (
       <React.Fragment>
-        <DetailContainer>
+        <DetailContainerStyles>
           <ListStyles>
             {Object.keys(list).map((key) => (
               <DetailsList
                 key={list[key].index}
                 item={list[key].index}
                 url={list[key].url}
-                handleClick={this.handleClick}
+                handleListClick={this.handleListClick}
               />
             ))}
           </ListStyles>
           <DetailStyles>
-            <h2>{details.full_name}</h2>
-            <DetailsInfo details={details} />
+            <h2>{details.full_name || details.name}</h2>
+            <DetailsInfo
+              details={details}
+              getDataSetState={this.getDataSetState}
+              skillData={this.state.skillData}
+            />
           </DetailStyles>
-        </DetailContainer>
+        </DetailContainerStyles>
       </React.Fragment>
     );
   }

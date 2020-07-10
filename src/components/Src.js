@@ -38,6 +38,7 @@ class Src extends Component {
   }
 
   renderItems = (data) => {
+    console.log('data = ', data)
     const items = Object.keys(data).map((key) => {
       return (
         <ListItem

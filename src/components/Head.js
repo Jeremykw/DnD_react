@@ -24,7 +24,7 @@ class Head extends Component {
     return (
       <Title>
         <Link to="/">
-          Rource Reference Tool
+          Source Reference Tool
         </Link>
         <p>For 5th addition Dungeons and Dragons</p>
       </Title>
