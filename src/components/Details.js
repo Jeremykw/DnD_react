@@ -67,7 +67,7 @@ class Details extends Component {
             {Object.keys(list).map((key) => (
               <DetailsList
                 key={list[key].index}
-                item={list[key].index}
+                item={(list[key].class) ? list[key].class : list[key].index}
                 url={list[key].url}
                 handleListClick={this.handleListClick}
               />

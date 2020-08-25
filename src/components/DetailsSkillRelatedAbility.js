@@ -17,6 +17,7 @@ class DetailsSkillRelatedAbility extends Component {
   }
 
   componentDidMount() {
+    if (!this.props.details.ability_score) return;
     getData(this.props.details.ability_score.url).then((data) => {
       this.setState({
         relatedAbility: data,
@@ -25,6 +26,7 @@ class DetailsSkillRelatedAbility extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    if (!this.props.details.ability_score) return;
     if (this.props === prevProps) return;
     getData(this.props.details.ability_score.url).then((data) => {
       this.setState({

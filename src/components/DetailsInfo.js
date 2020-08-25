@@ -66,7 +66,6 @@ class DetailsInfo extends Component {
   addSkills = (skills) => {
     if (!skills) return;
     const skillList = skills.map((skill) => {
-      console.log("skills = ", skills);
       return (
         <SkillsLink
           key={skill.name}
@@ -99,7 +98,7 @@ class DetailsInfo extends Component {
 
   render() {
     const details = this.props.details;
-    console.log(details);
+    console.log('details info = ', details);
     if (!details.desc && !details.typical_speakers) {
       return <span>loading</span>;
     }

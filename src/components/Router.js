@@ -12,6 +12,9 @@ const detailPages = [
   '/src/conditions/',
   '/src/damage-types/',
   '/src/languages/',
+  '/src/starting-equipment/',
+  '/src/traits/',
+  '/src/races/',
 ]
 
 const Router = () => (

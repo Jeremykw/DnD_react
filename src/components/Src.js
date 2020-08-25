@@ -27,6 +27,9 @@ class Src extends Component {
     getData(this.props.match.url).then((data) => {
       this.setState({ data: data });
     });
+    getData('/api/spellcasting').then((data) => {
+      console.log(data)
+    });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -40,11 +43,12 @@ class Src extends Component {
   renderItems = (data) => {
     console.log('data = ', data)
     const items = Object.keys(data).map((key) => {
+      console.log('key = ', key)
       return (
         <ListItem
-          key={data[key].index}
-          item={data[key].index}
-          url={data[key].url}
+          key={key}
+          item={key}
+          url={data[key]}
         />
       );
     });

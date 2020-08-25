@@ -41,7 +41,9 @@ const parseResults = (responce) => {
   // Parse data returned from API and return consistant results
   let dataObject = [];
   // if data is nested in .resutls return results only
+
   if (responce.results) {
+    console.log('hello its me')
     dataObject = responce.results.map((item) => item);
     return dataObject;
   }
@@ -49,12 +51,14 @@ const parseResults = (responce) => {
   if (responce.desc || responce.full_name || responce.typical_speakers ) {
     return responce;
   }
+  return responce;
   // convert hash into an array of objets
   dataObject = Object.keys(responce).map((key) => ({
     index: key,
     url: responce[key],
   }));
   return dataObject;
+
 };
 
 async function getData(url) {
