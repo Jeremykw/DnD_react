@@ -13,10 +13,10 @@ class Nav extends Component {
         <Link to="/src" className="btn">
           <button>SRC</button>
         </Link>
-        <Link to="/" className="btn">
+        <Link to="/characters" className="btn">
         <button>Characters</button>
         </Link>
-        <Link to="/" className="btn">
+        <Link to="/account" className="btn">
           <button>Account</button> 
         </Link>
       </NavStyle>

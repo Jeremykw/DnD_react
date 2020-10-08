@@ -5,6 +5,8 @@ import Home from "./Home";
 import Src from "./Src";
 import Details from "./Details";
 import NotFound from "./NotFound";
+import Account from "./Account";
+import Characters from "./Characters";
 
 const detailPages = [
   '/src/ability-scores/', 
@@ -20,6 +22,9 @@ const detailPages = [
 const Router = () => (
   <Switch>
     <Route path="/" exact component={Home} />
+    <Route path="/src" exact component={Src} />
+    <Route path="/characters" exact component={Characters} />
+    <Route path="/account" exact component={Account} />
     <Route path="/src" exact component={Src} />
     <Route path={detailPages} exact component={Details} />
     <Route path="/src/:category" component={Src} />

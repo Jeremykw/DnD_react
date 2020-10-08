@@ -65,13 +65,9 @@ async function getData(url) {
   // preform api call
   const response = await fetch(apiUrl(url));
   console.log('url = ', apiUrl(url))
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  } else {
-    const data = await response.json();
-    // parse results to insure consistant data structure before returning
-    return parseResults(data);
-  }
+  const data = await response.json();
+  // parse results to insure consistant data structure before returning
+  return parseResults(data);
 }
 
 export { getData, formatUrl, apiUrl, parseResults, randomPage };
